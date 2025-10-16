@@ -17,8 +17,11 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="Identity\" />
   </ItemGroup>
 
+=======
+>>>>>>> af90a08 (feat(identity): Identity implementation)
 </Project>
