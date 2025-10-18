@@ -33,6 +33,14 @@
 
 *Modified Models for Identity implementation.
 
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
+
+  - ICategoryRepository
+  - ISubTaskRepository
+  - ITagRepository
+  - ITaskRepository
+  - IuserRepository (Deleted)
+
 # ***5. Data Layer.***
 
 - AppDbContext file created inside Data layer.
@@ -75,15 +83,20 @@
 
 - Identity Folder added to contain Application user model
 
+- Migrations folder generated in this Layer for Data Base Migration.
+
+- Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
+
 # ***6. Application Layer.***
 	
-- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern.
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern. (Moved To Domain Project to solve dependency Cycle)
 
   - ICategoryRepository
   - ISubTaskRepository
   - ITagRepository
   - ITaskRepository
   - IuserRepository (Deleted)
+  - ITokenService (Moved)
 
 # ***7. Minimal API.***
 
@@ -112,3 +125,13 @@
     - Microsoft.EntityFrameworkCore.SqlServer.
     - Microsoft.EntityFrameworkCore.
     - Microsoft.EntityFrameworkCore.Tools
+
+# ***8. Next Week´s Sprint (10/20)***
+
+- Solve DEPENDENCY CYCLE between Application and Data.
+- Modificate Repositories for Linq Qeries addition.
+- Middlewares.
+- JWT
+- Minimal API Controllers Based.
+- Start Angular Learning. 	
+	
