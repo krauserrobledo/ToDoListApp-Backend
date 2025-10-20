@@ -119,11 +119,15 @@
     - Microsoft.EntityFrameworkCore.Tools
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # *** Next Week´s Sprint (10/20)***
 =======
 
 # ***Next Week´s Sprint (10/20)***
 >>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
+=======
+# ***Next Week´s Sprint (10/20)***
+>>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
 
 - JWT
 - Solve DEPENDENCY CYCLE between Application and Data.
@@ -132,7 +136,7 @@
 - Minimal API Controllers Based.
 - Start Angular Learning.
 
-# *** JWT ***
+# ***JWT***
 
 - Add configurations in appsetting.json.
 - Interface ITokenService.cs creation in Data/Abstractions.
@@ -142,11 +146,15 @@
 - Identity integration.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # *** Solving Dependency Cycle ***
 =======
 
 # ***Solving Dependency Cycle***
 >>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
+=======
+# ***Solving Dependency Cycle***
+>>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
 
 - Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
 
@@ -159,6 +167,7 @@
 
 - Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -189,3 +198,9 @@
 - added Endpoints annotations modifing with sintax methods(summary, tags...)
 - Tried endpoints with Swagger help
 >>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
+=======
+  # ***Linq Queries***
+
+  - All Repositories classes were modified to implement LINQ syntax queries
+
+>>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
