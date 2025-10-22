@@ -2,10 +2,15 @@
 {
     // Tag DTOs
 <<<<<<< HEAD
+<<<<<<< HEAD
     public record TagCreateDTO(string Name);
     public record TagUpdateDTO(string Name);
 =======
     public record TagCreateDTO(string Name, string User);
     public record TagUpdateDTO(int Id, string Name);
 >>>>>>> 5210ae3 (fix(endpoints):bug fix and OpenApi implementation)
+=======
+    public record TagCreateDTO(string Name);
+    public record TagUpdateDTO(string Name);
+>>>>>>> 869890a (fix(endpoints): Category endpoints bug fix)
 }
