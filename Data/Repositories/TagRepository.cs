@@ -5,15 +5,23 @@ using Microsoft.EntityFrameworkCore;
 namespace Data.Repositories
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
     /// <summary>
     /// Repository for managing Tag entities
     /// </summary>
     /// <param name="context"></param>
     public class TagRepository(AppDbContext context) : ITagRepository
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         private readonly AppDbContext _context = context;
         /// <summary>
         /// Create a new tag
@@ -29,9 +37,13 @@ namespace Data.Repositories
             var existingTag = await _context.Tags
                  .FirstOrDefaultAsync(t => t.Name == tag.Name && t.UserId == tag.UserId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             if (existingTag != null)
             {
                 throw new InvalidOperationException("A tag with the same name already exists for this user.");
@@ -50,9 +62,13 @@ namespace Data.Repositories
             return tag;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Delete an existing tag
         /// </summary>
@@ -64,6 +80,10 @@ namespace Data.Repositories
             // Validate id using LINQ
             var tagExist = await _context.Tags
                 .FirstOrDefaultAsync(t => t.Id == tagId);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // Delete and save if exists
             if (tagExist != null) 
             {
@@ -74,9 +94,13 @@ namespace Data.Repositories
             return false;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get a tag by Id
         /// </summary>
@@ -90,19 +114,28 @@ namespace Data.Repositories
             // Validate input
             if (string.IsNullOrWhiteSpace(tagId))
 <<<<<<< HEAD
+<<<<<<< HEAD
                 throw new ArgumentException("Tag ID cannot be whitespace or null.", nameof(tagId));
 
 =======
                 throw new ArgumentException("Tag ID cannot be whitespace.", nameof(tagId));
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+                throw new ArgumentException("Tag ID cannot be whitespace or null.", nameof(tagId));
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // Find
             var tag = await _context.Tags.FindAsync(tagId);
             return tag;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get Tags from Tasks and Users
         /// </summary>
@@ -112,6 +145,10 @@ namespace Data.Repositories
         /// <returns> Returns async list containing Tags asigned to selected Task</returns>
         public async Task<ICollection<Tag>> GetTagsByTask(string taskId, string userId)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // Get all tags for a task validated by user id using LINQ
             return await _context.TaskTags
                 .Where(tt => tt.TaskId == taskId && tt.Task.UserId == userId)
@@ -120,9 +157,13 @@ namespace Data.Repositories
                 .ToListAsync();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get tags which belongs to a specific user
         /// </summary>
@@ -138,9 +179,13 @@ namespace Data.Repositories
                 .ToListAsync(); 
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Check if tag name exists for a specific user
         /// </summary>
@@ -155,9 +200,13 @@ namespace Data.Repositories
                 .AnyAsync(t => t.Name == name && t.UserId == userId);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Updates an existing tag for a specific user.
         /// </summary>

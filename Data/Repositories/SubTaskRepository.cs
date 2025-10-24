@@ -5,9 +5,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Data.Repositories
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
     /// <summary>
     /// Repository implementation for subtask repository interface
     /// </summary>
@@ -18,9 +22,13 @@ namespace Data.Repositories
         // DB Context
         private readonly AppDbContext _context = context;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Creates a new subtask for the specified task, ensuring that the subtask title is unique within that task.
         /// </summary>
@@ -34,15 +42,21 @@ namespace Data.Repositories
             var existingSubtask = await _context.Subtasks
                 .FirstOrDefaultAsync(st => st.Title == subtask.Title && st.TaskId == subtask.TaskId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3b811eb (refactor: improve code organization)
 
             // set CreatedAt time
             var currtime = DateTime.UtcNow;
 
             subtask.CreatedAt = currtime;
 
+<<<<<<< HEAD
 =======
             // If exists throw exception
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+>>>>>>> 3b811eb (refactor: improve code organization)
             if (existingSubtask != null)
                 {
                 throw new InvalidOperationException("A subtask with the same title already exists for this task.");
@@ -54,9 +68,13 @@ namespace Data.Repositories
             return subtask;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Deletes a subtask by its ID if it exists.
         /// </summary>
@@ -70,9 +88,13 @@ namespace Data.Repositories
                 .Where(st => st.Id == id)
                 .FirstOrDefaultAsync();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // If exists delete and save changes
             if (subtaskExist != null)
             {
@@ -83,9 +105,13 @@ namespace Data.Repositories
             return false;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Gets all subtasks associated with a specific task, ordered by descending ID.
         /// </summary>
@@ -101,9 +127,13 @@ namespace Data.Repositories
                 .ToListAsync();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Gets a subtask by its ID.
         /// </summary>
@@ -117,9 +147,13 @@ namespace Data.Repositories
                 .FirstOrDefaultAsync(st =>  st.Id == subTaskId );
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Update an existing Subtask by title
         /// </summary>
@@ -133,18 +167,26 @@ namespace Data.Repositories
                 .Where(t =>  t.Id == subTask.Id)
                 .FirstOrDefaultAsync();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // If exists update
             if (subtaskExist != null)
             {
                 // Update attribute
                 subtaskExist.Title = subTask.Title ?? subtaskExist.Title;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9b74040 (refactor: clean code and documentation)
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
                 // Save changes
                 await _context.SaveChangesAsync();
                 return subtaskExist;

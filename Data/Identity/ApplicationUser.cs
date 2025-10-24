@@ -15,6 +15,10 @@ namespace Data.Identity
 
         // Attributes
         public string? Name { get; set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
         // Navigation properties
         public virtual ICollection<Task> Tasks { get; set; } = [];
         public virtual ICollection<Category> Categories { get; set; } = [];

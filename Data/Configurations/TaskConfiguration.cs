@@ -61,6 +61,10 @@ namespace Data.Configurations
                 .WithOne(st => st.Task)
                 .HasForeignKey(st => st.TaskId)
                 .OnDelete(DeleteBehavior.Cascade);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b811eb (refactor: improve code organization)
             // Indexes
             builder.HasIndex(t => new { t.Title, t.UserId })
                 .IsUnique(); // Unique index to prevent duplicate task titles for the same user
