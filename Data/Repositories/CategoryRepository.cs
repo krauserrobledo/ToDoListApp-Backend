@@ -13,14 +13,7 @@ namespace Data.Repositories
     {
         // DbContext instance
         private readonly AppDbContext _context = context;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Creates a new category for the specified user, ensuring that the category name is unique for that user.
         /// </summary>
@@ -61,14 +54,7 @@ namespace Data.Repositories
             await _context.SaveChangesAsync();
             return category;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Updates existing category for a specific user, valdating inputs and ensuring color integrity.
         /// </summary>
@@ -80,6 +66,7 @@ namespace Data.Repositories
         {
 
             // Validation: Check if category exists using LINQ
+
             var existingCategory = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == category.Id);
             if (existingCategory == null)
@@ -103,14 +90,7 @@ namespace Data.Repositories
             await _context.SaveChangesAsync();
             return existingCategory;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Deletes a category by its ID if it exists.
         /// </summary>
@@ -123,6 +103,7 @@ namespace Data.Repositories
             var categoryExist = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
 
+
             // Delete and save if exists
             if (categoryExist != null)
             {
@@ -132,14 +113,7 @@ namespace Data.Repositories
             }
             return false;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Checks if a category exists by its ID.
         /// </summary>
@@ -152,14 +126,7 @@ namespace Data.Repositories
             return await _context.Categories
                 .AnyAsync(c => c.Id == categoryId);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Checks if a category name already exists for a specific user.
         /// </summary>
@@ -173,14 +140,7 @@ namespace Data.Repositories
             return await _context.Categories
                 .AnyAsync(c => c.Name == name && c.UserId == userId);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get all categories by user id ordered by descending id.
         /// </summary>
@@ -196,14 +156,7 @@ namespace Data.Repositories
                 .OrderByDescending(c => c.Id)
                 .ToListAsync();
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get categories from tasks and users
         /// </summary>
@@ -225,14 +178,7 @@ namespace Data.Repositories
                 .Select(joined => joined.Category)
                 .ToListAsync();
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Get a specific category by id
         /// </summary>

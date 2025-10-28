@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions;
+using Domain.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.DTOs.TaskDTOs;
 using System.Security.Claims;
@@ -319,10 +319,6 @@ namespace MinimalApi.Endpoints
             }
         }
         /// <summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
         /// Removes a category from a specified task.
         /// </summary>
         /// <remarks>This method checks for the existence of both the task and category before
@@ -332,19 +328,7 @@ namespace MinimalApi.Endpoints
         /// <param name="categoryRepository"> Category Repository class</param>
         /// <param name="context">HTTP context</param>
         /// <returns>NotFound, Problem, Error</returns>
-<<<<<<< HEAD
-=======
-        /// 
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <param name="categoryId"></param>
-        /// <param name="taskRepository"></param>
-        /// <param name="categoryRepository"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
+
         private static async Task<IResult> RemoveCategoryFromTask(
             string taskId, 
             string categoryId,
@@ -377,10 +361,6 @@ namespace MinimalApi.Endpoints
             }
         }
         /// <summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
         /// Removes Tag from a Task
         /// </summary>
         /// <remarks> Validate entities before deleting</remarks>
@@ -390,19 +370,6 @@ namespace MinimalApi.Endpoints
         /// <param name="taskRepository">Repository class for Task</param>
         /// <param name="context">HTTP context</param>
         /// <returns> Ok, NotFound, Unauthorized</returns>
-<<<<<<< HEAD
-=======
-        /// 
-        /// </summary>
-        /// <param name="tagId"></param>
-        /// <param name="taskId"></param>
-        /// <param name="tagRepository"></param>
-        /// <param name="taskRepository"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
         private static async Task<IResult> RemoveTagFromTask(
             string tagId,
             string taskId,
@@ -435,10 +402,6 @@ namespace MinimalApi.Endpoints
             }
         }
         /// <summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
         /// Adds a category to a specified task.
         /// </summary>
         /// <remarks>This method checks for the existence of both the task and category before adding the category to the task.</remarks>
@@ -448,19 +411,7 @@ namespace MinimalApi.Endpoints
         /// <param name="categoryRepository">Repository class for Category</param>
         /// <param name="context">HTTP context</param>
         /// <returns> Unauthorized, NotFound, Problem, Ok</returns>
-<<<<<<< HEAD
-=======
-        /// 
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <param name="categoryId"></param>
-        /// <param name="taskRepository"></param>
-        /// <param name="categoryRepository"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
+
         private static async Task<IResult> AddCategoryToTask(
             string taskId, 
             string categoryId,
@@ -495,10 +446,6 @@ namespace MinimalApi.Endpoints
             }
         }
         /// <summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
         /// Adds a tag to a specified task.
         /// </summary>
         /// <remarks>This method checks for the existence of both the task and tag before adding the tag to the task.</remarks>
@@ -508,19 +455,7 @@ namespace MinimalApi.Endpoints
         /// <param name="taskRepository">Repository class for Task</param>
         /// <param name="context">HTTP context</param>
         /// <returns> NotFound, Ok, Unauthorized, Problem</returns>
-<<<<<<< HEAD
-=======
-        /// 
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <param name="tagId"></param>
-        /// <param name="tagRepository"></param>
-        /// <param name="taskRepository"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
->>>>>>> 3b811eb (refactor: improve code organization)
+
         private static async Task<IResult> AddTagToTask(
             string taskId,
             string tagId,

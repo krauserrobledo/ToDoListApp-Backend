@@ -1,4 +1,4 @@
-﻿namespace Domain.Constants
+namespace Domain.Constants
 {
     /// <summary>
     /// Task Status constant
@@ -16,27 +16,17 @@
         public const string Late = "Late";
 
         public const string Finished = "Finished";
-<<<<<<< HEAD
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         // Valid statuses array
         public static readonly string[] All =
         [
+
             NonStarted,
             InProgress,
             Paused,
             Late,
             Finished
         ];
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b74040 (refactor: clean code and documentation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         // Validate if a status is valid
         public static bool IsValid(string status)
         {
