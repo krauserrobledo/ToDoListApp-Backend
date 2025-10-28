@@ -83,25 +83,26 @@
 
 - Identity Folder added to contain Application user model.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a00545d (refactor(auth): TokenService.cs refactoring to resolve dependency cycle)
 - Migrations folder generated in this Layer for Data Base Migration.
 
 - Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
 
 - Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
-<<<<<<< HEAD
-=======
-- Migrations folder generated in this Layer for Data Base Migration
->>>>>>> 178425a (docs: Clarify Identity and migrations updates in README)
-=======
->>>>>>> a00545d (refactor(auth): TokenService.cs refactoring to resolve dependency cycle)
+
 
 # ***6. Application Layer.***
 	
 - Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern. (Moved To Domain Project to solve dependency Cycle)
+
+- Identity Folder added to contain Application user model
+
+- Migrations folder generated in this Layer for Data Base Migration.
+  
+
+# ***6. Application Layer.***
+	
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern.
+
 
   - ICategoryRepository
   - ISubTaskRepository
@@ -142,17 +143,45 @@
 
 # ***8. Next Week´s Sprint (10/20)***
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+- JWT
 - Solve DEPENDENCY CYCLE between Application and Data.
-=======
->>>>>>> 178425a (docs: Clarify Identity and migrations updates in README)
-=======
-- Solve DEPENDENCY CYCLE between Application and Data.
->>>>>>> a00545d (refactor(auth): TokenService.cs refactoring to resolve dependency cycle)
 - Modificate Repositories for Linq Qeries addition.
 - Middlewares.
-- JWT
 - Minimal API Controllers Based.
-- Start Angular Learning. 	
-	
+- Start Angular Learning.
+
+# ***JWT***
+
+- Add configurations in appsetting.json.
+- Interface ITokenService.cs creation in Data/Abstractions.
+- implementing interface TokenService.cs in Data/Services.
+- JWT configuration in Program.cs(Authentication, DI and Middleware)
+- Auth endpoints and DTO's creation.
+- Identity integration.
+
+# *** Solving Dependency Cycle ***
+
+
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
+
+  - ICategoryRepository.
+  - ISubTaskRepository.
+  - ITagRepository.
+  - ITaskRepository.
+ 
+- Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
+
+- Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
+
+
+  # ***Linq Queries***
+
+  - All Repositories classes were modified to implement LINQ syntax queries
+ 
+  # ***Middleware***
+
+  - Middleware folder created in minimal api Layer.
+  - Created ExceptionHandlingMiddleware.cs for global exception handler.
+  - Created RequestLoginMiddleware to help in console debug.
+  - Middleware Registered in program.cs
+
