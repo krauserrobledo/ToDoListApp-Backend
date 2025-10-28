@@ -33,6 +33,14 @@
 
 *Modified Models for Identity implementation.
 
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
+
+  - ICategoryRepository
+  - ISubTaskRepository
+  - ITagRepository
+  - ITaskRepository
+  - IuserRepository (Deleted)
+
 # ***5. Data Layer.***
 
 - AppDbContext file created inside Data layer.
@@ -73,6 +81,19 @@
 
 	*Modified configurations to implement Identity User.
 
+- Identity Folder added to contain Application user model.
+
+- Migrations folder generated in this Layer for Data Base Migration.
+
+- Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
+
+- Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
+
+
+# ***6. Application Layer.***
+	
+- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern. (Moved To Domain Project to solve dependency Cycle)
+
 - Identity Folder added to contain Application user model
 
 - Migrations folder generated in this Layer for Data Base Migration.
@@ -82,13 +103,15 @@
 	
 - Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern.
 
+
   - ICategoryRepository
   - ISubTaskRepository
   - ITagRepository
   - ITaskRepository
   - IuserRepository (Deleted)
   - ITokenService (Moved)
-
+ 
+  - Service/Token service implementation (Moved to Data Layer).
 
 # ***7. Minimal API.***
 
@@ -118,16 +141,7 @@
     - Microsoft.EntityFrameworkCore.
     - Microsoft.EntityFrameworkCore.Tools
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-# *** Next Week´s Sprint (10/20)***
-=======
-
-# ***Next Week´s Sprint (10/20)***
->>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
-=======
-# ***Next Week´s Sprint (10/20)***
->>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
+# ***8. Next Week´s Sprint (10/20)***
 
 - JWT
 - Solve DEPENDENCY CYCLE between Application and Data.
@@ -145,16 +159,8 @@
 - Auth endpoints and DTO's creation.
 - Identity integration.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 # *** Solving Dependency Cycle ***
-=======
 
-# ***Solving Dependency Cycle***
->>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
-=======
-# ***Solving Dependency Cycle***
->>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
 
 - Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
 
@@ -167,38 +173,7 @@
 
 - Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-# ***Linq Queries***
-
-- All Repositories classes were modified to implement LINQ syntax queries
-
- 
-# ***Middleware***
-
-- Middleware folder created in minimal api Layer.
-- Created ExceptionHandlingMiddleware.cs for global exception handler.
-- Created RequestLoginMiddleware to help in console debug.
-- Middleware Registered in program.cs
-
-
-# ***Minimal API Controller Based***
-
-- DTO Folder Creation containning DTO files used in endpoints.
-- Endpoints Folder Created to contain endpoint files.
-- Created Minimal API Endpoints files using repositories and DTO.
-
-
-# ***Documentation***
-
-- Installed NuGet package Swashbuckle.AspNetCore to generate API documentation.
-- Configurations Added in Program.cs
-- added Endpoints annotations modifing with sintax methods(summary, tags...)
-- Tried endpoints with Swagger help
->>>>>>> 8b50ae6 (docs: Add README documentation for project updates and new features)
-=======
   # ***Linq Queries***
 
   - All Repositories classes were modified to implement LINQ syntax queries
@@ -210,4 +185,3 @@
   - Created RequestLoginMiddleware to help in console debug.
   - Middleware Registered in program.cs
 
->>>>>>> 60d4f14 (docs: Update README.md for clarity and new section)
