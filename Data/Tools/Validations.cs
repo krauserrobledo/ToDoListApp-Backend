@@ -1,26 +1,12 @@
 ﻿namespace Data.Tools
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> f2584a8 (refactor: add comments and clean implementation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
     /// <summary>
     /// Utility class for various validations.
     /// </summary>
     public class Validations 
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> f2584a8 (refactor: add comments and clean implementation)
-=======
-
->>>>>>> 3b811eb (refactor: improve code organization)
         /// <summary>
         /// Validates if the provided string is a valid hexadecimal color code.
         /// </summary>

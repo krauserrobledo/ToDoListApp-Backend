@@ -66,7 +66,6 @@ namespace Data.Repositories
         {
 
             // Validation: Check if category exists using LINQ
-
             var existingCategory = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == category.Id);
             if (existingCategory == null)
@@ -102,7 +101,6 @@ namespace Data.Repositories
             // Validate input using LINQ
             var categoryExist = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
-
 
             // Delete and save if exists
             if (categoryExist != null)
