@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions;
+﻿using Domain.Abstractions.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;

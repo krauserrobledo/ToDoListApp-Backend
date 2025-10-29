@@ -1,4 +1,4 @@
-﻿namespace MinimalApi.DTOs.SubtaskDTOs
+﻿namespace Application.DTOs.SubtaskDTOs
 
 {
     // Subtask Update DTO

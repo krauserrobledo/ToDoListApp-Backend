@@ -1,8 +1,8 @@
-﻿namespace MinimalApi.DTOs.CategoryDTOs
+﻿namespace Application.DTOs.CategoryDTOs
 
 {
     //DTO for updating a category
-    public record CategoryUpdateDTO
+    public record CategoryUpdateRequest
         (
 
         string Name,

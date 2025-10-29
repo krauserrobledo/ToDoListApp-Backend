@@ -1,6 +1,6 @@
 ﻿using Tasks = Domain.Models.Task;
 
-namespace Application.Abstractions.Repositories
+namespace Domain.Abstractions.Repositories
 {
     /// <summary>
     /// Interface for Task repository

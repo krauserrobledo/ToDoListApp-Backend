@@ -1,4 +1,4 @@
-﻿namespace MinimalApi.DTOs.TagDTOs
+﻿namespace Application.DTOs.TagDTOs
 {
 
     // Tag CreateDTOs

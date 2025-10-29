@@ -1,8 +1,8 @@
-﻿namespace MinimalApi.DTOs.CategoryDTOs
+﻿namespace Application.DTOs.CategoryDTOs
 
 {
     // Category create DTO
-    public record CategoryCreateDTO
+    public record CategoryCreateRequest
         (
 
         string Name,

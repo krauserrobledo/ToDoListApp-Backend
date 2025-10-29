@@ -1,7 +1,6 @@
-﻿using Application.Abstractions.Repositories;
-using Domain.Models;
+﻿using Application.Abstractions.Services;
 using Microsoft.AspNetCore.Mvc;
-using MinimalApi.DTOs.TagDTOs;
+using Application.DTOs.TagDTOs;
 using System.Security.Claims;
 
 namespace MinimalApi.Endpoints
@@ -41,7 +40,7 @@ namespace MinimalApi.Endpoints
         /// <returns>Returns the created Tag.</returns>
         private static async Task<IResult> CreateTag(
             [FromBody] TagCreateDTO request,
-            ITagRepository tagRepository,
+            ITagService tagService,
             HttpContext context)
         {
             // Logic to create a tag
@@ -55,20 +54,15 @@ namespace MinimalApi.Endpoints
                 if (string.IsNullOrEmpty(userId))
                     return Results.Unauthorized();
                 // Check for duplicate tag name for the same user
-                var nameExists = await tagRepository.TagNameExists(request.Name, userId);
+                var nameExists = await tagService.TagNameExists(request.Name, userId);
                 if (nameExists)
                 {
                     return Results.Conflict("A tag with the same name already exists for this user.");
                 }
-                // Create new Tag entity'
-                var newTag = new Tag
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserId = userId,
-                    Name = request.Name
-                };
+                // Create new Tag entity' without using direct domain model
+
                 // Save to repository
-                var createdTag = await tagRepository.CreateTag(newTag);
+                var createdTag = await tagService.CreateTag(newTag);
                 // Return success response
                 return Results.Created($"/api/tags/{createdTag.Id}", new
                 {
@@ -88,20 +82,20 @@ namespace MinimalApi.Endpoints
         /// <remarks> Validates if the tag exists and updates its details.</remarks>
         /// <param name="id">The ID of the tag to update.</param>
         /// <param name="request">The tag update request.</param>
-        /// <param name="tagRepository">The tag repository.</param>
+        /// <param name="tagService">The tag service.</param>
         /// <param name="context">The HTTP context.</param>
         /// <returns>Returns the updated Tag.</returns>
         private static async Task<IResult> UpdateTag(
             string id,
             [FromBody] TagUpdateDTO request,
-            ITagRepository tagRepository,
+            ITagService tagService,
             HttpContext context)
         {
             // Logic to update a tag
             try
             {
                 //Check if EXISTS
-                var existingTag = await tagRepository.GetTagById(id);
+                var existingTag = await tagService.GetTagById(id);
                 if (existingTag == null)
                 {
                     return Results.NotFound($"Tag with ID {id} not found.");
@@ -112,7 +106,7 @@ namespace MinimalApi.Endpoints
                     existingTag.Name = request.Name;
                 }
                 // Update in repository
-                var updatedTag = await tagRepository.UpdateTag(existingTag);
+                var updatedTag = await tagService.UpdateTag(existingTag);
                 if (updatedTag == null)
                 {
                     return Results.Problem("Failed to update the tag.");
@@ -134,25 +128,25 @@ namespace MinimalApi.Endpoints
         /// </summary>
         /// <remarks> Validates if the tag exists before deletion.</remarks>
         /// <param name="id">The ID of the tag to delete.</param>
-        /// <param name="tagRepository">The tag repository.</param>
+        /// <param name="tagService">The tag service.</param>
         /// <param name="context">The HTTP context.</param>
         /// <returns>Returns a result indicating the outcome of the deletion.</returns>
         private static async Task<IResult> DeleteTag(
             string id,
-            ITagRepository tagRepository,
+            ITagService tagService,
             HttpContext context)
         {
             // Logic to delete a tag
             try
             {
                 // Id Validation
-                var existingTag = await tagRepository.GetTagById(id);
+                var existingTag = await tagService.GetTagById(id);
                 if (existingTag == null)
                 {
                     return Results.NotFound($"Tag with ID {id} not found.");
                 }
-                // Repository call
-                var deleted = await tagRepository.DeleteTag(id);
+                // Service call
+                var deleted = await tagService.DeleteTag(id);
 
                 if (!deleted)
                 {
@@ -170,19 +164,19 @@ namespace MinimalApi.Endpoints
         /// Gets a tag by ID.
         /// </summary>
         /// <param name="id">The ID of the tag to retrieve.</param>
-        /// <param name="tagRepository">The tag repository.</param>
+        /// <param name="tagService">The tag service.</param>
         /// <param name="context">The HTTP context.</param>
         /// <returns>Returns the requested tag or a not found response.</returns>
         private static async Task<IResult> GetTagById(
             string id,
-            ITagRepository tagRepository,
+            ITagService tagService,
             HttpContext context)
         {
             // Logic to get a tag by ID
             try
             {
                 // Id Validation
-                var tag = await tagRepository.GetTagById(id);
+                var tag = await tagService.GetTagById(id);
                 if (tag == null)
                     return Results.NotFound($"Tag not Found");
                 // Return success response
@@ -202,11 +196,11 @@ namespace MinimalApi.Endpoints
         /// Gets tags by user ID.
         /// </summary>
         /// <remarks> Retrieves all tags associated with the authenticated user.</remarks>
-        /// <param name="tagRepository">Tag Repository</param>
+        /// <param name="tagService">Tag Service</param>
         /// <param name="context">HTTP context</param>
         /// <returns>Returns a list of tags associated with the user.</returns>
         private static async Task<IResult> GetTagsByUser(
-            ITagRepository tagRepository,
+            ITagService tagService,
             HttpContext context)
         {
             // Logic to get tags by user ID
@@ -215,7 +209,7 @@ namespace MinimalApi.Endpoints
                 // Check user / Get user fromcontext
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                var tags = await tagRepository.GetTagsByUser(userId);
+                var tags = await tagService.GetTagsByUser(userId);
                 var result = tags.Select(tag => new
                 {
                     id = tag.Id,

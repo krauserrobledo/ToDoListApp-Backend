@@ -1,4 +1,4 @@
-﻿namespace MinimalApi.DTOs.AuthDTOs
+﻿namespace Application.DTOs.AuthDTOs
 
 {
     // DTO for registration request

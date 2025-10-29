@@ -1,4 +1,4 @@
-﻿namespace Data.Tools
+﻿namespace Application.Tools
 {
 
     /// <summary>
@@ -22,6 +22,18 @@
             var hexPattern = @"^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$";
 
             return System.Text.RegularExpressions.Regex.IsMatch(color, hexPattern);
+        }
+
+        public static string ValidateAndFormatColor(string? color)
+        {
+            if (string.IsNullOrWhiteSpace(color))
+                return "#FFFFFF";
+
+            // Usar tu validación existente
+            if (!IsValidHexColor(color))
+                return "#FFFFFF";
+
+            return color.ToUpper();
         }
     }
 }

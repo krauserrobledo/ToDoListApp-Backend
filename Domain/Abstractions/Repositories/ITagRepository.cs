@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Application.Abstractions.Repositories
+namespace Domain.Abstractions.Repositories
 {
 
     /// <summary>
