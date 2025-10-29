@@ -1,16 +1,8 @@
-﻿using Data.Abstractions;
+using Data.Abstractions;
 using Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using MinimalApi.DTOs.AuthDTOs;
-=======
-using MinimalApi.DTOs;
->>>>>>> f2584a8 (refactor: add comments and clean implementation)
-=======
-using MinimalApi.DTOs.AuthDTOs;
->>>>>>> 3b811eb (refactor: improve code organization)
 
 namespace MinimalApi.Endpoints
 {
