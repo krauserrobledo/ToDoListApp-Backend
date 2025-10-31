@@ -1,8 +1,9 @@
 ﻿using Domain.Abstractions.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Application.Abstractions.Repositories;
 
-namespace Data.Repositories
+namespace Infraestructure.Repositories
 {
     /// <summary>
     /// Repository implementation for category repository interface
@@ -14,36 +15,79 @@ namespace Data.Repositories
         private readonly AppDbContext _context = context;
 
         /// <summary>
-        /// Creates a new category for the specified user.
+        /// Creates a new category for the specified user, ensuring that the category name is unique for that user.
         /// </summary>
-        /// <param name="category">The <see cref="Category"/> object to create.</param>
+        /// <remarks>If the <see cref="Category.Id"/> is not provided, a new GUID will be generated. If
+        /// the <see cref="Category.Color"/> is not provided or is invalid, it defaults to white (#FFFFFF).</remarks>
+        /// <param name="category">The <see cref="Category"/> object to create. The <see cref="Category.Name"/> and <see
+        /// cref="Category.UserId"/> properties must be set.</param>
         /// <returns>The created <see cref="Category"/> object, including its generated or updated properties such as <see
         /// cref="Category.Id"/> and <see cref="Category.Color"/>.</returns>
-       
-        public async Task<Category> Create(Category category)
+        /// <exception cref="InvalidOperationException">Thrown if a category with the same name already exists for the specified user.</exception>
+        public async Task<Category> CreateCategory(Category category)
         {
 
-            // Data access with no business logic
+            // Validate NAME input using LINQ
+            var existingCategory = await _context.Categories
+                 .FirstOrDefaultAsync(c => c.Name == category.Name && c.UserId == category.UserId);
+
+            if (existingCategory != null)
+            {
+                throw new InvalidOperationException("A category with the same name already exists for this user.");
+            }
+
+            // Generate a new GUID for the ID if not provided
+            if (string.IsNullOrEmpty(category.Id) || string
+                .IsNullOrWhiteSpace(category.Id))
+                category.Id = Guid
+                    .NewGuid()
+                    .ToString();
+
+            // Validate color default white
+            if (string.IsNullOrEmpty(category.Color))
+                category.Color = "#FFFFFF";
+            else if (!Validations.IsValidHexColor(category.Color))
+                category.Color = "#FFFFFF";
+
+            // Add to DbContext and save changes
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
             return category;
         }
 
         /// <summary>
-        /// Updates existing category for a specific user.
+        /// Updates existing category for a specific user, valdating inputs and ensuring color integrity.
         /// </summary>
-        /// <param name="category">The <see cref="Category"/> object with updated values.</param>
-        /// <returns>The updated <see cref="Category"/> object, or null if not found.</returns>
-        public async Task<Category?> Update(Category category)
+        /// <remarks>If the <see cref="Category.Color"/> is not provided or is invalid, it defaults to white (#FFFFFF).
+        /// If the category does not exist, null is returned.</remarks> 
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public async Task<Category?> UpdateCategory(Category category)
         {
 
-            // Retrieve existing category
+            // Validation: Check if category exists using LINQ
             var existingCategory = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == category.Id);
+            if (existingCategory == null)
+                return null;
+
+            // Validate color default White
+            if (string.IsNullOrWhiteSpace(category.Color))
+                category.Color = "#FFFFFF";
+
+            else if (!Validations.IsValidHexColor(category.Color))
+                category.Color = "#FFFFFF";
+
+            // Update properties if changed
+            if (!string.IsNullOrWhiteSpace(category.Name))
+                existingCategory.Name = category.Name;
+
+            if (existingCategory.Color != category.Color)
+                existingCategory.Color = category.Color;
 
             // Update in DbContext and save changes
             await _context.SaveChangesAsync();
-            return category;
+            return existingCategory;
         }
 
         /// <summary>
@@ -51,29 +95,29 @@ namespace Data.Repositories
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns>Returns true if the category was found and deleted; otherwise, returns false</returns>
-        public async Task<bool> Delete(string categoryId)
+        public async Task<bool> DeleteCategory(string categoryId)
         {
 
-            // Retrieve existing category
+            // Validate input using LINQ
             var categoryExist = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
 
-            // Return false if not found
-            if (categoryExist == null)
-            
-                return false;
             // Delete and save if exists
-            _context.Categories.Remove(categoryExist);
-            await _context.SaveChangesAsync();
-            return true;
+            if (categoryExist != null)
+            {
+                _context.Categories.Remove(categoryExist);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
         /// Checks if a category exists by its ID.
         /// </summary>
-        /// <param name="categoryId">The ID of the category to check.</param>
+        /// <param name="categoryId"></param>
         /// <returns>Returns true if the category exists; otherwise, false.</returns>
-        public async Task<bool> Exists(string categoryId)
+        public async Task<bool> CategoryExists(string categoryId)
         {
 
             // Validate input and check existance using LINQ
@@ -84,10 +128,10 @@ namespace Data.Repositories
         /// <summary>
         /// Checks if a category name already exists for a specific user.
         /// </summary>
-        /// <param name="name">The name of the category to check.</param>
-        /// <param name="userId">The ID of the user to check.</param>
+        /// <param name="name"></param>
+        /// <param name="userId"></param>
         /// <returns>Returns true if a category with the specified name exists for the user; otherwise, false.</returns>
-        public async Task<bool> NameExists(string name, string userId)
+        public async Task<bool> CategoryNameExists(string name, string userId)
         {
 
             // Validate input and check existance using LINQ
@@ -101,7 +145,7 @@ namespace Data.Repositories
         /// <remarks> Gets UserId from context</remarks>
         /// <param name="userId"></param>
         /// <Returns>Collection of Categories with details</returns>
-        public async Task<ICollection<Category>> GetByUser(string userId)
+        public async Task<ICollection<Category>> GetCategoriesByUser(string userId)
         {
 
             // Validate input and retrieve using LINQ
@@ -115,10 +159,10 @@ namespace Data.Repositories
         /// Get categories from tasks and users
         /// </summary>
         /// <remarks>Joins TaskCategories and Categories tables to get categories for a specific task and user</remarks>
-        /// <param name="taskId">The ID of the task to check.</param>
-        /// <param name="userId">The ID of the user to check.</param>
+        /// <param name="taskId"></param>
+        /// <param name="userId"></param>
         /// <returns>Returns categories async List</returns>
-        public async Task<ICollection<Category>> GetByTaskId(string taskId, string userId)
+        public async Task<ICollection<Category>> GetCategoriesByTaskId(string taskId, string userId)
         {
 
             // Validate input and retrieve using LINQ
@@ -137,9 +181,9 @@ namespace Data.Repositories
         /// Get a specific category by id
         /// </summary>
         /// <remarks>Returns null if not found</remarks>
-        /// <param name="categoryId">The ID of the category to retrieve.</param>
+        /// <param name="categoryId"></param>
         /// <returns>Returns Categories by FirstDefaultAsync method</returns>
-        public async Task<Category?> GetById(string categoryId)
+        public async Task<Category?> GetCategoryById(string categoryId)
         {
 
             // Validate input and retrieve using LINQ
