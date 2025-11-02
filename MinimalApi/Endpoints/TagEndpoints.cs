@@ -13,8 +13,6 @@ namespace MinimalApi.Endpoints
     public static class TagEndpoints
     {
 
-        private static string? newTag;
-
         /// <summary>
         /// Configures the API endpoints for tag-related operations.
         /// </summary>
@@ -52,7 +50,8 @@ namespace MinimalApi.Endpoints
         private static async Task<IResult> CreateTag(
             [FromBody] TagCreateRequest request,
             ITagService tagService,
-            HttpContext context, string? newTag)
+            HttpContext context
+            )
         {
 
             // Logic to create a tag
@@ -72,12 +71,12 @@ namespace MinimalApi.Endpoints
                 // Create new Tag entity' without using direct domain model
 
                 // Save to repository
-                var createdTag = await tagService.CreateTag(newTag, userId);
+                var createdTag = await tagService.CreateTag(request.Name, userId);
 
                 // Return success response
                 return Results.Created($"/api/tags/{createdTag.Id}", new
                 {
-                    Name = request.Name,
+                    
                     id = createdTag.Id,
                     name = createdTag.Name,
                 });
@@ -110,6 +109,8 @@ namespace MinimalApi.Endpoints
             {
                 // Get user ID from context
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (userId == null) return Results.Unauthorized();
 
                 //Check if EXISTS
                 var existingTag = await tagService.GetTagById(id, userId);
@@ -171,6 +172,8 @@ namespace MinimalApi.Endpoints
 
                 // Get user ID from context
                 var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (userId == null) return Results.Unauthorized();
 
                 // Id Validation
                 var existingTag = await tagService.GetTagById(id, userId);

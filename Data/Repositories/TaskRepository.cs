@@ -1,10 +1,10 @@
-﻿using Domain.Abstractions.Repositories;
+﻿using Application.Abstractions.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
 using Tasks = Domain.Models.Task;
 
-namespace Data.Repositories
+namespace Infraestructure.Repositories
 {
 
     /// <summary>
@@ -177,7 +177,8 @@ namespace Data.Repositories
 
             // Validate association using LINQ
             var taskTag = await _context.TaskTags
-                .FirstOrDefaultAsync(tt => tt.TaskId == taskId && tt.TagId == tagId);
+                .FirstOrDefaultAsync(tt => tt.TaskId == taskId && tt.TagId == tagId) ?? throw new Exception ("That association does not exists");
+
 
             // Remove and save
             _context.TaskTags.Remove(taskTag);
@@ -248,7 +249,7 @@ namespace Data.Repositories
         {
 
             return await _context.Tasks
-                .AnyAsync(t => t.Title.ToLower() ==  title.ToLower() && t.UserId == userId);
+                .AnyAsync(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && t.UserId == userId);
         }
     }
 }
