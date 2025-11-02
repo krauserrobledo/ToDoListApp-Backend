@@ -180,9 +180,11 @@ namespace Infraestructure.Repositories
                 .FirstOrDefaultAsync(tt => tt.TaskId == taskId && tt.TagId == tagId) ?? throw new Exception ("That association does not exists");
 
 
-            // Remove and save
-            _context.TaskTags.Remove(taskTag);
-            await _context.SaveChangesAsync();
+            if (taskTag != null)
+
+                // Remove and save
+                _context.TaskTags.Remove(taskTag);
+                await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -220,10 +222,10 @@ namespace Infraestructure.Repositories
         {
 
             // Validate Task by Id
-            var task = await _context.Tasks.FindAsync(taskId);
+             await _context.Tasks.FindAsync(taskId);
 
             // Validate Tag by Id
-            var tag = await _context.Tags.FindAsync(tagId);
+            await _context.Tags.FindAsync(tagId);
 
             // Create new association
             var taskTag = new TaskTag()

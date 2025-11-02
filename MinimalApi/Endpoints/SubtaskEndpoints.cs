@@ -111,6 +111,9 @@ namespace MinimalApi.Endpoints
                 if (string.IsNullOrEmpty(userId))
                     return Results.Unauthorized();
 
+                if (userId == null) 
+                    return Results.Unauthorized();
+
                 // Check if the subtask exists
                 var existingSubtask = await subtaskService.GetSubtaskById(id,userId);
                 if (existingSubtask == null)
