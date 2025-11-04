@@ -379,7 +379,7 @@ namespace MinimalApi.Endpoints
 
 
                 // Check if category exists
-                var existingCategory = await categoryService.GetCategoryById(categoryId, userId);
+                var existingCategory = await categoryService.GetCategoryById(categoryId);
 
                 if (existingCategory == null) return Results.NotFound($"Category not found");
 
@@ -473,7 +473,7 @@ namespace MinimalApi.Endpoints
                 if (existingTask == null || existingTask.UserId != userId) return Results.NotFound($"Task not found");
 
                 // Check if category exists
-                var existingCategory = await categoryService.GetCategoryById(categoryId, userId);
+                var existingCategory = await categoryService.GetCategoryById(categoryId);
 
                 if (existingCategory == null || existingTask.UserId !=userId) return Results.NotFound($"Category not found");
 
