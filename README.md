@@ -396,11 +396,3 @@
    			Still 500 , inconsistence found between models and data base, corrected after migration.
    
    	- Other minor fixes in GET responses about lack of details
- 
-## ***Frontend:***
- 
-- Initialize Angular project.
-  
-- Set project structure.
-  
-- Create Auth Module.
