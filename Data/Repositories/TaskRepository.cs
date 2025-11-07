@@ -163,7 +163,6 @@ namespace Infraestructure.Repositories
             // Remove and save
             _context.TaskCategories.Remove(taskCategory);
             await _context.SaveChangesAsync();
-            return;
         }
 
         /// <summary>
@@ -210,7 +209,6 @@ namespace Infraestructure.Repositories
             // Add and save
             _context.TaskCategories.Add(taskCategory);
             await _context.SaveChangesAsync();
-            return;
         }
 
         /// <summary>
@@ -223,11 +221,7 @@ namespace Infraestructure.Repositories
         public async Task AddTag(string taskId, string tagId)
         {
 
-            // Validate Task by Id
-             await _context.Tasks.FindAsync(taskId);
-
-            // Validate Tag by Id
-            await _context.Tags.FindAsync(tagId);
+            
 
             // Create new association
             var taskTag = new TaskTag()
@@ -239,7 +233,6 @@ namespace Infraestructure.Repositories
             // Add and save
             _context.TaskTags.Add(taskTag);
             await _context.SaveChangesAsync();
-            return;
         }
 
         /// <summary>

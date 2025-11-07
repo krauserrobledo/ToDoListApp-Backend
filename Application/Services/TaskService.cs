@@ -1,12 +1,11 @@
-﻿using Application.Abstractions.Services;
-using Application.Abstractions.Repositories;
-using Domain.Models;
+﻿using Application.Abstractions.Repositories;
+using Application.Abstractions.Services;
+using Task = System.Threading.Tasks.Task;
 using Tasks = Domain.Models.Task;
-using Microsoft.Extensions.Options;
 
 namespace Application.Services
 {
-    public class TaskService(ITaskRepository taskRepository, 
+    public class TaskService(ITaskRepository taskRepository,
         ICategoryRepository categoryRepository,
         ITagRepository tagRepository) : ITaskService
     {
@@ -141,6 +140,11 @@ namespace Application.Services
             return existingTasks;
         }
 
+        public ITaskRepository Get_taskRepository()
+        {
+            return _taskRepository;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -148,15 +152,22 @@ namespace Application.Services
         /// <param name="categoryId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<bool> AddCategoryToTask(string taskId, string categoryId)
+        public async Task AddCategoryToTask(string taskId, string categoryId)
         {
+
             // Validate inputs
+            if (string.IsNullOrWhiteSpace(taskId))
+                throw new ArgumentException("Task ID is required");
+
+            if (string.IsNullOrWhiteSpace(categoryId))
+                throw new ArgumentException("Category ID is required");
+
             var task = _taskRepository.GetById(taskId).Result ?? throw new ArgumentException("Task not found");
 
             var category = _categoryRepository.GetById(categoryId).Result ?? throw new ArgumentException("Category not found");
 
             // Add category to task
-            return await (Task<bool>)_taskRepository.AddCategory(taskId, categoryId);
+            await _taskRepository.AddCategory(taskId, categoryId);
         }
 
         /// <summary>
@@ -166,7 +177,7 @@ namespace Application.Services
         /// <param name="tagId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<bool> AddTagToTask(string taskId, string tagId)
+        public async Task AddTagToTask(string taskId, string tagId)
         {
 
             // Validate inputs
@@ -175,7 +186,7 @@ namespace Application.Services
             var tag = _tagRepository.GetById(tagId).Result ?? throw new ArgumentException("Tag not found");
 
             // Add tag to task
-            return await (Task<bool>)_taskRepository.AddTag(taskId, tagId);
+            await _taskRepository.AddTag(taskId, tagId);
         }
 
         /// <summary>
@@ -185,7 +196,7 @@ namespace Application.Services
         /// <param name="categoryId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<bool> RemoveCategoryFromTask(string taskId, string categoryId)
+        public async System.Threading.Tasks.Task RemoveCategoryFromTask(string taskId, string categoryId)
         {
 
             // Validate inputs
@@ -194,7 +205,7 @@ namespace Application.Services
             var category = _categoryRepository.GetById(categoryId).Result ?? throw new ArgumentException("Category not found");
 
             // Remove category from task
-            return await (Task<bool>)_taskRepository.RemoveCategory(taskId, categoryId);
+            await _taskRepository.RemoveCategory(taskId, categoryId);
         }
 
         /// <summary>
@@ -204,7 +215,7 @@ namespace Application.Services
         /// <param name="tagId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<bool> RemoveTagFromTask(string taskId, string tagId)
+        public async Task RemoveTagFromTask(string taskId, string tagId)
         {
 
             // Validate inputs
@@ -213,7 +224,7 @@ namespace Application.Services
             var tag = _tagRepository.GetById(tagId).Result ?? throw new ArgumentException("Tag not found");
 
             // Remove tag from task
-            return await (Task<bool>)_taskRepository.RemoveTag(taskId, tagId);
+            await _taskRepository.RemoveTag(taskId, tagId);
         }
 
         /// <summary>

@@ -16,10 +16,10 @@ namespace Application.Abstractions.Services
         Task<Tasks?> GetTaskById(string taskId, string userId);
 
         // manage relationships
-        Task<bool> AddTagToTask(string taskId, string tagId);
-        Task<bool> RemoveTagFromTask(string taskId, string tagId);
-        Task<bool> AddCategoryToTask(string taskId, string categoryId);
-        Task<bool> RemoveCategoryFromTask(string taskId, string categoryId);
+        Task AddTagToTask(string taskId, string tagId);
+        Task RemoveTagFromTask(string taskId, string tagId);
+        Task AddCategoryToTask(string taskId, string categoryId);
+        Task RemoveCategoryFromTask(string taskId, string categoryId);
 
         // Validation
         Task<bool> TaskTitleExists(string title, string userId);
