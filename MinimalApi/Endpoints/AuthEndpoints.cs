@@ -86,7 +86,7 @@ namespace MinimalApi.Endpoints
             var token = tokenService.GenerateToken(user);
 
             // Return response 
-            return Results.Ok(new AuthResponseDTO(token, user.Email!));
+            return Results.Ok(new AuthResponseDTO(token, user.Email, user.UserName));
         }
 
         /// <summary>
@@ -118,7 +118,8 @@ namespace MinimalApi.Endpoints
             // Return response
             return Results.Ok(new AuthResponseDTO(
                 token,
-                user.Email!));
+                user.Email!,
+                user.UserName!));
         }
 
         /// <summary> 
