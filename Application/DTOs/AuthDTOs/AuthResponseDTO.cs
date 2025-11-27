@@ -7,7 +7,9 @@
 
         string Token,
         
-        string Email
+        string Email,
+
+        string UserName
         );
 
 }
