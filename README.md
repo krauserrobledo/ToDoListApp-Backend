@@ -1,398 +1,88 @@
-# ***1. Introduction***
+# ***Embrace IT – TODO List API***
 
-	This document contains the development process for creating  APP TODO List for Embrace IT made as an intership exercise  in company.
+## ***Overview***
+This project is a **TODO List application** developed as an internship exercise at *Embrace IT*.  
+It consists of a **.NET 9 Minimal API backend** with **Clean Architecture principles** and an **Angular frontend**.  
+The goal is to provide a scalable, secure, and well‑structured application with authentication, task management, and API documentation.
 
-	The requirements for this project are found in the request.pdf document provided by the  person in charge of the internship.
+## ***Tech Stack***
+- **Backend**: .NET 9 Minimal API, Entity Framework Core, Identity, JWT
+- **Frontend**: Angular (modular architecture: Core, Auth, Features, Shared) -> https://github.com/krauserrobledo/TODO-List-APP-frontend
+- **Database**: SQL Server
+- **Documentation**: Swagger / Swashbuckle
+- **Other Tools**: LINQ, Middleware, PWA, Dexie, Capacitor
 
-	With this document, it was agreed sending weekly email on the first day  to those responsible for the internships.
-
-	This email will include the work sequence for that week, and on the last day of the week,  this sequence will be verified through repositories or  relevant documentation.
-
-# ***2. Tutorial Followed***
-
-	In my search of information, I found this tutorial wich explains all the concepts we need to implement in backend Structure : 
-	- https://www.youtube.com/watch?v=RRrsFE6OXAQ&list=LL&index=3 
-
-
-# ***Weekly Sprint (10/13)***
-
-  
-## ***Project Structure.***
-
-	- Empty solution creation.
-  	- Projects creation as library classes:  Domain, Data, Application.
-  	- MinimalApi Project creation.
-
-## ***Domain Layer.***
-	
-	- Model folder created inside Domain Library Class containning entity models:
-		
-		- Task
-  		- Tag
-  		- Category
-  		- SubTask
-		- TaskTag
-		- TaskCategory
-		- User (Deleted)
-
-	*Modified Models for Identity implementation.
-
-
-## ***Data Layer.***
-
-	- AppDbContext file created inside Data layer.
-	- Configurations added :
-
+## ***Project Structure***
 ```
-  protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-			
-			modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+Solution
+ ├── Domain        → Entities, repository contracts
+ ├── Application   → Service interfaces, DTOs, business logic
+ ├── Data          → DbContext, repositories, EF Core configurations
+ └── MinimalApi    → Endpoints, Middlewares, DI setup
 ```
 
-	- AppDbContext modified to heredate IdentityDbContext.
-
-	- Nuget Packages :
-	
- 		- Microsoft.EntityFrameworkCore.SqlServer. 
-  		- Microsoft.EntityFrameworkCore.
-  		- Microsoft.AspNetCore.Identity.EntityFrameworkCore.
-
-	- Repositories folder created containing implementation for repositories interfaces.
-	
-	  - CategoryRepository
-	  - SubTaskRepository
-	  - TagRepository
-	  - taskRepository
-	
-		*Clases were modified to Identity implementation
-
-	- Configurations folder containing external entities configuration used in dbcontext :
-	
-	  	- CategoryConfiguration
-	   	- SubTaskConfiguration
-		- TagConfiguration
-		- TaskConfiguration
-		- UserConfiguration (Deleted)
-		- TaskTagConfiguration
-		- TaskCategoryConfiguration
-
-	*Modified configurations to implement Identity User.
-
-	- Identity Folder added to contain Application user model.
-
-	- Migrations folder generated in this Layer for Data Base Migration.
-	
-	- Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
-	
-	- Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
-
-
-# ***Application Layer.***
-	
-	- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern. 
-	
-	- Identity Folder added to contain Application user model
-	
-	- Migrations folder generated in this Layer for Data Base Migrations.
-	
-		- ICategoryRepository
-	  	- ISubTaskRepository
-	  	- ITagRepository
-	  	- ITaskRepository
-	  	- IuserRepository (Deleted)
-	  	- ITokenService (Moved)
-	   	- Service/Token service implementation (Moved to Data Layer).
-		
-
-## ***Minimal API.***
-
-	  - This project is set as single startup project in Solution.
-	    
-	  - Repositories Dependency Injection register in Program.cs :
-
-  ```
-	builder.Services.AddScoped<ITaskRepository,TaskRepository>();
-	builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-	builder.Services.AddScoped<ITagRepository, TagRepository>();
-	builder.Services.AddScoped<ISubTaskRepository, SubTaskRepository>();
-  ```
-
-	  - DbContext Dependency Injection register in Program.cs:
-	  
-  ```
-	builder.Services.AddDbContext<AppDbContext>();   
-  ```
-	
-	  - Dependency Injection for Identity implementation in Program.cs.
-	  
-	  - Connection String added on appsettings.json.
-	
-	  - Packages installation:
-	
-	    - Microsoft.EntityFrameworkCore.SqlServer.
-	    - Microsoft.EntityFrameworkCore.
-	    - Microsoft.EntityFrameworkCore.Tools
-	
-----
-
-# ***Weekly Sprint (10/20)***
-
-	- JWT
-	- Solve DEPENDENCY CYCLE between Application and Data.
-	- Modificate Repositories for Linq Qeries addition.
-	- Middlewares.
-	- Minimal API Controllers Based.
-	- Start Angular Learning.
-
-
-## ***JWT***
-
-	- Add configurations in appsetting.json.
-	- Interface ITokenService.cs creation in Data/Abstractions.
-	- implementing interface TokenService.cs in Data/Services.
-	- JWT configuration in Program.cs(Authentication, DI and Middleware)
-	- Auth endpoints and DTO's creation.
-	- Identity integration.
-
-
-## ***Solving Dependency Cycle***
-
-	- Abstractions Folder on Application Project Containning Repository Interfaces for Repository Pattern Moved To Domain Project to solve dependency Cycle.
-	
-		  - ICategoryRepository.
-		  - ISubTaskRepository.
-		  - ITagRepository.
-		  - ITaskRepository.
-		 
-	- Abstractions/ITokenService.cs moved from Appplication project to solve Dependency Cycle.
-
-	- Services/TokenService.cs moved from Application Layer to solve dependency Cycle.
-	
-
-## ***Linq Queries***
-
-	- All Repositories classes were modified to implement LINQ syntax queries
-
- 
-## ***Middleware***
-
-	- Middleware folder created in minimal api Layer.
-	- Created ExceptionHandlingMiddleware.cs for global exception handler.
-	- Created RequestLoginMiddleware to help in console debug.
-	- Middleware Registered in program.cs
-
-
-## ***Minimal API Controller Based***
-
-	- DTO Folder Creation containning DTO files used in endpoints.
-	- Endpoints Folder Created to contain endpoint files.
-	- Created Minimal API Endpoints files using repositories and DTO.
-
-
-## ***Documentation***
-
-	- Installed NuGet package Swashbuckle.AspNetCore to generate API documentation.
-	- Configurations Added in Program.cs
-	- added Endpoints annotations modifing with sintax methods(summary, tags...)
-	- Tried endpoints with Swagger help
-
-
-  ## ***Linq Queries***
-
-  	- All Repositories classes were modified to implement LINQ syntax queries
-    
- 
-  ## ***Middleware***
-
-	  - Middleware folder created in minimal api Layer.
-	  - Created ExceptionHandlingMiddleware.cs for global exception handler.
-	  - Created RequestLoginMiddleware to help in console debug.
-	  - Middleware Registered in program.cs
-	
-----
-
-# ***Weekly Sprint (10/27)***
-
-	- Start Conventional Commits Learning.
-	
-	- Initiate conventional commits structure on GitHub.
-	
-	- Services in clean code architecture researching to solve Dependency Cycle properly.
-	
-	- Solve DTO propper location folder to acomplish clean code architecture.
-	
-	- Solve dependency cycle properly by implementing services on Application Layer
-	
-	- Endpoints Testing.
-	
-	- Start Angular Topics Learning.
-	
-	- New project Deployment.
-	
-	- Build clean architecture Angular Project.
-	
-	- Dependencies instalation.
-	
-	- Environment Configuration.
-	
-	- Practice Angular Basics.
-
-
-## ***Conventional Commits(and branches) Learning***
-
-	- https://www.conventionalcommits.org/en/v1.0.0/
-	
-	- https://conventional-branch.github.io/#summary 
-	
-	- https://gist.github.com/vtenq/7a93687108cb876f884c3ce75a8a8023 
-
-
-## ***Initiate conventional commits structure on GitHub***
-
- 	- blank develop branch created.
-
-	- Delete wrong named current branch bugfix-+-NextSprint.
-
-	- Interactive commit rebase from root for correct naming.
-
-	- Design organized branches structure and create on git:
-	
-		- Chore
-		- bugfix
-		- feature
-	
-	- Divide each branch in specific branches:
-	
-		- chore/: init , readme and code-organization 
-		- bugfix/: database-connection, dependency-cycles and endpoint-errors
-		- feature/: api-endpoints, identity-auth, middleware, repository pattern and swagger docs
-
-	- main branch Cleaned.
-
-	- Move commits into organized branches structure using cherry-pick.
-
-	- Pull request develop branch based and resolving conflicts on GitHub.
-	
-## ***Services in clean code architecture researching to solve Dependency Cycle properly***
-	
-	- Create new branch for changes
-	- moved repository abstractions into domain layer
-	- create service interfaces in application/abstractions.
-	- Move bussines logic from repositories implementation into service implementation.
-	- Add Service dependencies in program.cs
-	- Use services in endpoints
-
-## ***Solve DTO propper location folder to acomplish clean code architecture***
-
-	- Moved DTO Folder into Application Layer.
-	- Divide responsibilities between Requests and Responses.
- 
-## ***Solve dependency cycle properly by implementing services on Application Layer***
-
-	dependency flow = Inner Flow
-	
-		- Domain no depends on any layer
-		- Application depends on domain
-		- Data depends on Domain
-		- Minimal api depends on application
- 
-## ***Endpoints Testing***
-
-	- Swagger for test communication with api endpoints.
- 
-## ***Start Angular Topics Learning***
-
-	 - Clean Structure 
-	 - Components
-	 - Stand-Alone 
-	 - Authentication
-	 - API communication with aps
-	 - Angular Routing
-	 - Interceptors
-	 - Guards
-	 
-### ***New project Deployment***
-
-	- Research in Angular project creation Commands
- 
-### ***Build clean architecture Angular Project***
-
-	Research about structures layered in folders :
-	
-	https://gesarsystem.droblob93.es/login 
-
-		- Core
-		- Auth
-		- Features
-		- Shared
- 
-### ***Dependencies instalation***
-
-	- PWA
-	- Dexie
-	- Capacitor
- 
-### ***Environment Configuration***
-
- 	- Environment folders containning.
-	
-### ***Practice Angular Basics***
-
-	- Created login with API communication for my own APP
-
-----
-
-# ***WEEKLY SPRINT 11/03***
-
-## ***Backend:***
- 
-- Code fixes for Clean Arch. after implementing Services:
-
-  	- Move Repositories Interfaces to Application Layer.
-  	- Finish implementation for Using services in Endpoints.
-  	- Update Line Comments up to current changes.
-		
-- Dependency Injections:
-  
-	- Created containers for Extension Methods by Layer.
- 	- Dependency Injection containers configuration in program.cs
-  	
-- Endpoint Checking using swagger:
-
-	- Error HTTP 500 when POST /api/auth/register: 
-
-			Checked if DB server was running. Detected problems in Connection String – fixed. 
-
-	- Error HTTP 400 when POST /api/auth/register (UserName is Empty): 
-
-			Fixed adding UserName string in RegisterRequestDTO and Username request string in Auth/Register Endpoint.
-
-	- Error HTTP 401 when GET /api/categories/{id}  and  /api/categories/user:
-
-			Warned about inverted condition in services get method (! before condition) caused by autocompletion.
-			Unnecesary using of “UserId” (When deleted, it works!). 
-
-	- Error HTTP 500 when GET /api/categories/user:
-
-			Detected inverted condition in services getUserCategories method (! before condition) caused by autocompletion
-
-	- Error HTTP 500 in every tag endpoints but create:
- 
- 	 		Caused by inverted conditions, caused by autocompletion.
-
-	- Error HTTP 409 in POST /api/tasks:
-
-   			Caused by using CurrentCultureIgnoreCase in LINQ expression. Replaced by .toLower() method. 
-
-	- After fixing 409 turned in HTTP 400 :
-
-   			Caused by wrong handled status for Task, also detected wrong calling to repository in Services.TaskTitleExists method. Solved fixing TaskService code.		
-
-	- Error HTTP 500 in POST /api/subtasks:
-
-   			Task not found for subtask , caused by wrong order in parameters between service and endpoint, corrected order.
-   			Still 500 , inconsistence found between models and data base, corrected after migration.
-   
-   	- Other minor fixes in GET responses about lack of details
+## ***Features***
+- **Authentication & Authorization** with JWT + Identity
+- **CRUD operations** for:
+  - Tasks
+  - Subtasks
+  - Categories
+  - Tags
+- **Middleware** for global exception handling and request logging
+- **Swagger documentation** with annotated endpoints
+- **Clean Architecture** with clear dependency flow:
+  - Domain → Application → Data → Minimal API
+
+## ***Required Backend Technologies***
+The backend requires the following technologies and implementations:
+
+- **Core Frameworks**
+  - .NET 9  
+  - Minimal API (Controller‑Based)  
+  - Layered Architecture  
+
+- **API Implementations**
+  - Identity (user management & authentication)  
+  - Middlewares (exception handling, logging)  
+  - LINQ queries (method syntax)  
+  - Repository pattern  
+  - Entity Framework Core  
+  - Dependency Injection  
+  - External Entities Configuration (DbContext mappings)  
+  - JWT (authorization & authentication)  
+
+## ***Setup & Installation***
+
+1. Clone the repository
+2. Configure connection string in `appsettings.json`
+3. Apply migrations:
+   ```bash
+   dotnet ef database update
+   ```
+4. Run the API:
+   ```bash
+   dotnet run
+   ```
+
+## ***API Documentation***
+Once the backend is running, access Swagger UI at:
+```
+http://localhost:5000/swagger
+```
+
+## ***Testing & Debugging***
+- Endpoints tested via **Swagger**
+- Common error handling:
+  - Fixed connection string issues (HTTP 500)
+  - Added missing `UserName` in DTOs (HTTP 400)
+  - Corrected inverted conditions in services (HTTP 401/500)
+  - Adjusted LINQ queries for case handling (HTTP 409 → 400)
+  - Fixed parameter mismatches between endpoints and services
+
+## ***Git Workflow***
+- **Conventional Commits and Branching** adopted for clarity
+- Branches organized as:
+  - `feature/` → new features
+  - `bugfix/` → error fixes
+  - `chore/` → maintenance tasks
+- Pull requests based on `develop` branch with conflict resolution
