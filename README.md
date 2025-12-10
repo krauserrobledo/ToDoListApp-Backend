@@ -10,7 +10,6 @@ The goal is to provide a scalable, secure, and well‑structured application wit
 - **Frontend**: Angular (modular architecture: Core, Auth, Features, Shared) -> https://github.com/krauserrobledo/TODO-List-APP-frontend
 - **Database**: SQL Server
 - **Documentation**: Swagger / Swashbuckle
-- **Other Tools**: LINQ, Middleware, PWA, Dexie, Capacitor
 
 ## ***Project Structure***
 ```
