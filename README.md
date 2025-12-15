@@ -6,8 +6,8 @@ It consists of a **.NET 9 Minimal API backend** with **Clean Architecture princi
 The goal is to provide a scalable, secure, and well‑structured application with authentication, task management, and API documentation.
 
 ## ***Tech Stack***
-- **Backend**: .NET 9 Minimal API, Entity Framework Core, Identity, JWT
-- **Frontend**: Angular (modular architecture: Core, Auth, Features, Shared) -> https://github.com/krauserrobledo/TODO-List-APP-frontend
+- **Backend**: .NET 10 Minimal API, Entity Framework Core, Identity, JWT
+- **Frontend**: Angular 21 (modular architecture: Core, Auth, Features, Shared) -> https://github.com/krauserrobledo/TODO-List-APP-frontend
 - **Database**: SQL Server
 - **Documentation**: Swagger / Swashbuckle
 
@@ -36,7 +36,7 @@ Solution
 The backend requires the following technologies and implementations:
 
 - **Core Frameworks**
-  - .NET 9  
+  - .NET 10 (Updated Latest LTS)
   - Minimal API (Controller‑Based)  
   - Layered Architecture  
 
