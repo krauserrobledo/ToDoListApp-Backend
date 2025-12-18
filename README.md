@@ -13,7 +13,11 @@ The goal is to provide a scalable, secure, and well‑structured application wit
 
 ## ***E-R Model***
 
-<img width="783" height="383" alt="DiagramaER drawio" src="https://github.com/user-attachments/assets/83cc2ee3-65b4-4356-aa99-96c69700b92f" />
+This diagram shows the Entity-Relationship (E-R) model designed for the project.  
+It describes the structure of the database by defining entities, attributes, and relationships according to the project requirements.
+
+<img width="1461" height="682" alt="DiagramaER2 drawio" src="https://github.com/user-attachments/assets/9d6b7ffe-c041-426a-aa5a-2eb5b18bf1b8" />
+
 
 
 ## ***Project Structure***
