@@ -11,6 +11,11 @@ The goal is to provide a scalable, secure, and well‑structured application wit
 - **Database**: SQL Server
 - **Documentation**: Swagger / Swashbuckle
 
+## ***E-R Model***
+
+<img width="783" height="383" alt="DiagramaER drawio" src="https://github.com/user-attachments/assets/83cc2ee3-65b4-4356-aa99-96c69700b92f" />
+
+
 ## ***Project Structure***
 ```
 Solution
